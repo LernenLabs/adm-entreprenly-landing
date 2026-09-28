@@ -1,0 +1,758 @@
+/* ─── Fuentes ──────────────────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;500;600;700;800&display=swap");
+
+@import "tailwindcss";
+
+
+@theme {
+  --font-sans: "Reddit Sans", sans-serif;
+
+  --color-brand-orange:     #f38313;
+  --color-brand-peach:      #fce0d4;
+  --color-brand-grayLight:  #c9c9c9;
+  --color-brand-gray:       #666666;
+  --color-brand-yellow:     #fff7e1;
+  --color-brand-brown:      #835500;
+  --color-brand-brownDeep:  #511e00;
+  --color-brand-brownEarth: #473723;
+  --color-brand-black:      #0c0f12;
+  --color-brand-white:      #f6f4f4;
+
+  --shadow-card: 0 18px 42px rgba(12, 15, 18, 0.08);
+  --shadow-soft: 0 24px 80px rgba(81, 30, 0, 0.12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-brand-white);
+    font-family: var(--font-sans);
+    color: var(--color-brand-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :root {
+    background:
+      radial-gradient(circle at 0% 0%, rgba(243, 131, 19, 0.14), transparent 24%),
+      radial-gradient(circle at 100% 0%, rgba(199, 157, 8, 0.16), transparent 22%),
+      linear-gradient(#fffdf8 0%, #f6f4f4 100%);
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-orange);
+    color: var(--color-brand-white);
+  }
+}
+
+@layer components {
+
+  .bg-grid-overlay {
+    opacity: 0.48;
+    background-image:
+      linear-gradient(rgba(81, 30, 0, 0.059) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(81, 30, 0, 0.059) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(rgba(0, 0, 0, 0.22), transparent 55%);
+    -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.22), transparent 55%);
+  }
+
+  .hero-stage {
+    isolation: isolate;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .hero-ambience {
+    contain: paint;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    background:
+      radial-gradient(circle at 12% 10%, rgba(243, 131, 19, 0.24), transparent 22%),
+      radial-gradient(circle at 82% 14%, rgba(199, 157, 8, 0.18), transparent 18%),
+      radial-gradient(circle at 76% 72%, rgba(252, 224, 212, 0.80), transparent 26%);
+  }
+
+  .hero-ambience::before,
+  .hero-ambience::after {
+    content: "";
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.62;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .hero-ambience::before {
+    width: 18rem;
+    height: 18rem;
+    left: -3.5rem;
+    top: -2rem;
+    background: radial-gradient(circle, rgba(243, 131, 19, 0.32) 0%, rgba(243, 131, 19, 0.18) 42%, transparent 70%);
+    animation: hero-backdrop-orb-a 14s ease-in-out infinite;
+  }
+
+  .hero-ambience::after {
+    width: 22rem;
+    height: 22rem;
+    right: 4rem;
+    bottom: -3.5rem;
+    background: radial-gradient(circle, rgba(252, 224, 212, 0.72) 0%, rgba(252, 224, 212, 0.38) 44%, transparent 72%);
+    animation: hero-backdrop-orb-b 17s ease-in-out infinite;
+  }
+
+  .eyebrow {
+    @apply mb-4 inline-flex items-center gap-3 text-xs font-extrabold uppercase tracking-[0.2em] text-brand-brown;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-0.5 w-8 rounded-full;
+    background-image: linear-gradient(90deg, #f38313, #c79d08);
+  }
+
+  .soft-card {
+    @apply rounded-3xl border border-brand-brownDeep/10 p-6 shadow-card;
+  }
+
+  .video-card {
+    @apply relative aspect-video overflow-hidden rounded-[1.75rem] border border-brand-brownDeep/10
+           bg-brand-black shadow-soft;
+  }
+
+  .mini-tag {
+    @apply inline-flex rounded-full bg-brand-brownDeep/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-brand-brownDeep;
+  }
+
+  .pill-tag {
+    @apply inline-flex rounded-full bg-brand-orange/10 px-3 py-1 text-xs font-extrabold uppercase tracking-[0.18em] text-brand-brownDeep;
+  }
+
+  .faq-plus {
+    @apply absolute right-0 top-0 text-3xl font-light leading-none text-brand-brown transition duration-200;
+  }
+  details[open] .faq-plus {
+    transform: rotate(45deg);
+  }
+
+  .cta-primary {
+    @apply inline-flex min-h-14 items-center justify-center rounded-full
+           bg-brand-orange px-6 py-3
+           text-sm font-bold text-brand-white
+           shadow-[0_14px_30px_rgba(243,131,19,0.28)]
+           transition hover:-translate-y-0.5 hover:bg-[#e4770e];
+  }
+
+  .cta-secondary {
+    @apply inline-flex min-h-14 items-center justify-center rounded-full
+           border border-brand-brownDeep/12 bg-white/80 px-6 py-3
+           text-sm font-bold text-brand-brownDeep
+           backdrop-blur transition hover:-translate-y-0.5 hover:border-brand-brownDeep/25;
+  }
+
+  .preference-icon-button {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full sm:h-12 sm:w-12
+           border border-brand-brownDeep/10 bg-white/80 text-brand-brownDeep
+           backdrop-blur transition hover:-translate-y-0.5 hover:border-brand-orange/25 hover:text-brand-orange;
+  }
+
+  .preference-icon-button.is-active {
+    @apply border-brand-orange/25 bg-brand-yellow text-brand-orange;
+  }
+
+  .language-picker {
+    @apply relative;
+  }
+
+  .language-picker::after {
+    content: "";
+    @apply absolute left-0 right-0 top-full h-3;
+  }
+
+  .language-popover {
+    @apply pointer-events-none absolute right-0 top-full mt-2 min-w-48 rounded-2xl
+           border border-brand-brownDeep/10 bg-white/95 p-2 opacity-0 shadow-card
+           backdrop-blur-xl transition;
+    transform: translateY(0.4rem);
+  }
+
+  .language-picker:hover .language-popover,
+  .language-picker:focus-within .language-popover {
+    @apply pointer-events-auto opacity-100;
+    transform: translateY(0);
+  }
+
+  .language-option {
+    @apply flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-3
+           text-left text-sm text-brand-brownEarth transition hover:bg-brand-yellow hover:text-brand-brownDeep;
+  }
+
+  .language-option.is-active {
+    @apply bg-brand-orange text-brand-white shadow-[0_14px_30px_rgba(243,131,19,0.22)];
+  }
+
+  .billing-toggle {
+    @apply inline-flex items-center gap-1 rounded-full
+           border border-brand-brownDeep/10 bg-white p-1.5 shadow-sm;
+  }
+
+  .billing-option {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-2.5
+           text-sm font-bold text-brand-brownEarth transition hover:text-brand-brownDeep;
+  }
+
+  .billing-option.is-active {
+    @apply bg-brand-orange text-brand-white;
+  }
+
+  .billing-save {
+    @apply rounded-full bg-brand-orange/12 px-2 py-0.5 text-[11px] font-extrabold leading-none text-brand-orange;
+  }
+
+  .billing-option.is-active .billing-save {
+    @apply bg-white/25 text-brand-white;
+  }
+
+  .billing-note {
+    @apply max-w-md text-center text-sm leading-6 text-brand-gray;
+  }
+
+  .mobile-preference-panel {
+    @apply absolute left-2 right-2 top-full z-50 mx-auto mt-3 max-w-7xl rounded-[1.75rem]
+           border border-brand-brownDeep/10 bg-white/95 p-4 shadow-card backdrop-blur-xl
+           sm:left-4 sm:right-4 lg:hidden;
+  }
+
+  .mobile-menu-panel {
+    @apply absolute left-2 right-2 top-full z-50 mx-auto mt-3 max-w-7xl rounded-[1.75rem]
+           border border-brand-brownDeep/10 bg-white/95 p-4 shadow-card backdrop-blur-xl
+           sm:left-4 sm:right-4 lg:hidden;
+  }
+
+  .theme-shell.theme-no-transitions,
+  .theme-shell.theme-no-transitions *,
+  .theme-shell.theme-no-transitions *::before,
+  .theme-shell.theme-no-transitions *::after {
+    transition: none !important;
+  }
+
+  .hero-float-card {
+    backface-visibility: hidden;
+    will-change: transform;
+    animation: hero-card-float 7.5s ease-in-out infinite;
+  }
+
+  .hero-card-inventory {
+    animation-name: hero-card-float-soft;
+    animation-duration: 8.8s;
+    animation-delay: -1.3s;
+  }
+
+  .hero-card-finance {
+    animation-name: hero-card-float-wide;
+    animation-duration: 9.5s;
+    animation-delay: -2.1s;
+  }
+
+}
+
+.theme-fade-layer {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  contain: layout paint style;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  will-change: opacity;
+}
+
+@keyframes hero-backdrop-orb-a {
+  0% {
+    opacity: 0.48;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    opacity: 0.78;
+    transform: translate3d(4.2rem, 1.8rem, 0) scale(1.24);
+  }
+
+  100% {
+    opacity: 0.52;
+    transform: translate3d(1.2rem, 4.6rem, 0) scale(1.06);
+  }
+}
+
+@keyframes hero-backdrop-orb-b {
+  0% {
+    opacity: 0.54;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    opacity: 0.78;
+    transform: translate3d(-4.6rem, -2.3rem, 0) scale(1.16);
+  }
+
+  100% {
+    opacity: 0.58;
+    transform: translate3d(-1.4rem, -5rem, 0) scale(1.08);
+  }
+}
+
+@keyframes hero-card-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(0.25rem, -0.7rem, 0) rotate(0.35deg);
+  }
+}
+
+@keyframes hero-card-float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(-0.35rem, -0.55rem, 0) rotate(-0.28deg);
+  }
+}
+
+@keyframes hero-card-float-wide {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0.45rem, 0.45rem, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ambience::before,
+  .hero-ambience::after,
+  .hero-float-card,
+  .hero-benefit,
+  .character-animation,
+  .frame {
+    animation: none !important;
+  }
+
+  .theme-shell,
+  .theme-shell * {
+    transition: none !important;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(243, 131, 19, 0.18), transparent 24%),
+    radial-gradient(circle at 100% 0%, rgba(255, 214, 120, 0.12), transparent 22%),
+    linear-gradient(#0c0f12 0%, #17110e 100%);
+}
+
+:root[data-theme="dark"] body {
+  background-color: #0c0f12;
+}
+
+.theme-dark.bg-brand-white,
+.theme-dark .bg-brand-white {
+  background-color: #0c0f12 !important;
+}
+
+.theme-dark {
+  color: #fff7e1 !important;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(243, 131, 19, 0.15), transparent 28%),
+    radial-gradient(circle at 90% 8%, rgba(255, 214, 120, 0.10), transparent 24%),
+    linear-gradient(180deg, #0c0f12 0%, #17110e 100%);
+}
+
+.theme-dark .section-toned {
+  background:
+    linear-gradient(180deg, rgba(255, 214, 120, 0.055), rgba(12, 15, 18, 0) 84%) !important;
+}
+
+.theme-dark .section-accent {
+  background:
+    radial-gradient(circle at 82% 0%, rgba(243, 131, 19, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 247, 225, 0.045), rgba(12, 15, 18, 0)) !important;
+}
+
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3,
+.theme-dark h4,
+.theme-dark strong {
+  color: #fff7e1 !important;
+}
+
+.theme-dark .section-toned h2 {
+  color: #fff3c7 !important;
+  text-shadow: 0 14px 38px rgba(0, 0, 0, 0.34);
+}
+
+.theme-dark .eyebrow {
+  color: #ffd678 !important;
+}
+
+.theme-dark .bg-grid-overlay {
+  opacity: 0.32;
+  background-image:
+    linear-gradient(rgba(255, 247, 225, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 247, 225, 0.08) 1px, transparent 1px);
+}
+
+.theme-dark .hero-ambience {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(243, 131, 19, 0.22), transparent 24%),
+    radial-gradient(circle at 82% 14%, rgba(255, 214, 120, 0.12), transparent 20%),
+    radial-gradient(circle at 76% 72%, rgba(131, 85, 0, 0.18), transparent 28%);
+}
+
+.theme-dark .hero-ambience::before {
+  background: radial-gradient(circle, rgba(243, 131, 19, 0.26) 0%, rgba(243, 131, 19, 0.15) 42%, transparent 70%);
+}
+
+.theme-dark .hero-ambience::after {
+  background: radial-gradient(circle, rgba(255, 214, 120, 0.20) 0%, rgba(255, 214, 120, 0.11) 44%, transparent 72%);
+}
+
+.theme-dark .soft-card,
+.theme-dark .benefit-summary,
+.theme-dark .mobile-preference-panel,
+.theme-dark .mobile-menu-panel,
+.theme-dark .language-popover,
+.theme-dark .video-card {
+  background: rgba(20, 16, 14, 0.9) !important;
+  border-color: rgba(255, 247, 225, 0.12) !important;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28) !important;
+}
+
+.theme-dark [class*="bg-white/"],
+.theme-dark .bg-white {
+  background-color: rgba(20, 16, 14, 1) !important;
+}
+
+.theme-dark [class*="bg-[#F6F4F4]"],
+.theme-dark [class*="bg-[#fffaf4]"] {
+  background-color: rgba(255, 247, 225, 0.06) !important;
+}
+
+.theme-dark [class*="bg-brand-yellow"] {
+  background-color: rgba(255, 214, 120, 0.12) !important;
+}
+
+.theme-dark [class*="bg-brand-peach"] {
+  background-color: rgba(243, 131, 19, 0.14) !important;
+}
+
+.theme-dark [class*="text-brand-black"],
+.theme-dark [class*="text-brand-brownDeep"],
+.theme-dark [class*="text-brand-brownEarth"] {
+  color: #fff7e1 !important;
+}
+
+.theme-dark [class*="text-brand-gray"] {
+  color: #d9cec4 !important;
+}
+
+.theme-dark .text-brand-white,
+.theme-dark [class*="text-brand-white"] {
+  color: #f6f4f4 !important;
+}
+
+.theme-dark .mini-tag {
+  background-color: rgba(255, 247, 225, 0.10) !important;
+  color: #fff7e1 !important;
+}
+
+.theme-dark .pill-tag {
+  background-color: rgba(243, 131, 19, 0.18) !important;
+  color: #ffd678 !important;
+}
+
+.theme-dark .nav-link:hover {
+  background-color: rgba(255, 214, 120, 0.12) !important;
+  color: #f38313 !important;
+}
+
+.theme-dark .billing-toggle {
+  background-color: rgba(20, 16, 14, 0.86) !important;
+  border-color: rgba(255, 247, 225, 0.14) !important;
+}
+
+.theme-dark .billing-option {
+  color: #fff7e1 !important;
+}
+
+.theme-dark .billing-option:hover {
+  background-color: rgba(255, 214, 120, 0.12) !important;
+  color: #ffd678 !important;
+}
+
+.theme-dark .billing-option.is-active {
+  background-color: #f38313 !important;
+  color: #f6f4f4 !important;
+}
+
+.theme-dark .cta-secondary,
+.theme-dark .preference-icon-button {
+  background-color: rgba(255, 247, 225, 0.08) !important;
+  border-color: rgba(255, 247, 225, 0.14) !important;
+  color: #fff7e1 !important;
+}
+
+.theme-dark .cta-primary {
+  color: #f6f4f4 !important;
+}
+
+.theme-dark .language-option {
+  color: #fff7e1 !important;
+}
+
+.theme-dark .language-option:hover {
+  background-color: rgba(255, 214, 120, 0.12) !important;
+}
+
+.theme-dark .language-option.is-active {
+  background-color: #f38313 !important;
+  color: #f6f4f4 !important;
+}
+
+/* ─── Estilos custom de imágenes / hero (migrados desde styles.css) ────────── */
+
+.s2-image,
+.s3-image {
+  margin-top: 1.5rem;
+  border-radius: 5%;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 340 / 160;
+  height: auto;
+  object-fit: cover;
+}
+
+.s1-image {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 340 / 300;
+  height: auto;
+  object-fit: cover;
+}
+
+.scale-card {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+
+.scale-card:hover {
+  transform: translateY(-20px) rotateZ(5deg) scale(1.15);
+}
+
+/* --- Imágenes del hero (mismas en ambos temas) --- */
+.img-light {
+  display: block;
+  mix-blend-mode: multiply;
+  filter: contrast(1.1);
+}
+
+/* ─── Hero character + tarjetas flotantes ─────────────────────────────────── */
+
+.hero-character {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* la altura escala con el viewport para conservar la composición flotante */
+  min-height: clamp(300px, 86vw, 480px);
+}
+
+.hero-benefit {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1.6vw, 10px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(81, 30, 0, 0.06);
+  border-radius: 999px;
+  padding: clamp(7px, 1.9vw, 11px) clamp(11px, 3.2vw, 18px);
+  box-shadow: 0 18px 42px rgba(81, 30, 0, 0.14);
+  font-weight: 700;
+  /* el texto se reduce en pantallas chicas: "desktop pero más pequeño" */
+  font-size: clamp(0.68rem, 2.5vw, 0.95rem);
+  color: #473723;
+  white-space: nowrap;
+  /* usa `translate` (independiente de transform) para no pisar la rotación */
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+/* punto de acento delante de cada etiqueta */
+.hero-benefit::before {
+  content: "";
+  flex: none;
+  width: clamp(6px, 1.7vw, 9px);
+  height: clamp(6px, 1.7vw, 9px);
+  border-radius: 999px;
+  background: #f38313;
+  box-shadow: 0 0 0 4px rgba(243, 131, 19, 0.16);
+}
+
+.card-1 {
+  top: 3%;
+  left: 4%;
+  transform: rotate(-5deg);
+  animation-delay: 0s;
+}
+
+.card-2 {
+  top: 13%;
+  right: 3%;
+  transform: rotate(4deg);
+  animation-delay: -2s;
+}
+
+.card-3 {
+  top: 42%;
+  right: 9%;
+  transform: rotate(-3deg);
+  animation-delay: -4s;
+}
+
+.card-4 {
+  top: 40%;
+  left: 1%;
+  transform: rotate(4deg);
+  animation-delay: -1s;
+}
+
+.card-5 {
+  bottom: 7%;
+  left: 7%;
+  transform: rotate(-4deg);
+  animation-delay: -3s;
+}
+
+.card-6 {
+  bottom: 5%;
+  right: 6%;
+  transform: rotate(5deg);
+  animation-delay: -5s;
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -9px;
+  }
+}
+
+/* ─── Animación de frames del personaje ───────────────────────────────────── */
+
+.character-animation {
+  position: relative;
+  /* algo más chico en móvil para dejar aire a las tarjetas flotantes */
+  width: min(430px, 62vw);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  z-index: 1;
+  /* Tarjeta blanca limpia en ambos temas (igual que el modo oscuro). */
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(81, 30, 0, 0.14);
+  /* Animación por movimiento (flotación), sin cambiar de frame → sin parpadeo. */
+  animation: floatCharacter 5.5s ease-in-out infinite;
+}
+
+@keyframes floatCharacter {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-1.2deg);
+  }
+}
+
+/* En modo oscuro la tarjeta usa una sombra más marcada para separarse del fondo. */
+.theme-dark .character-animation {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+}
+
+/* Personaje animado: los 3 frames se apilan y se muestran por turnos
+   (icon → icon2 → icon3) para dar la sensación de movimiento. */
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  will-change: opacity;
+  animation: characterFrames 1.2s steps(1, end) infinite;
+}
+
+/* Cada frame es visible en su tercio del ciclo; los delays negativos
+   escalonan el orden sin esperar a que arranque la animación. */
+.frame1 {
+  opacity: 1;
+  animation-delay: -0.2s;
+}
+
+.frame2 {
+  animation-delay: -0.6s;
+}
+
+.frame3 {
+  animation-delay: -1s;
+}
+
+@keyframes characterFrames {
+  0%,
+  33.333% {
+    opacity: 1;
+  }
+  33.334%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ─── Ajustes responsive del hero ─────────────────────────────────────────── */
+
+/* Nota: las tarjetas del hero flotan (absolute) también en móvil; su tamaño y
+   posición escalan con el viewport para verse como el desktop pero más chico. */
+
+/* ─── Sin glow del botón primario en zonas de fondo oscuro (banner CTA) ────── */
+#cta .cta-primary {
+  box-shadow: none;
+}
+

@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entreprenly | Smart Retail for small businesses</title>
+  <meta name="description"
+    content="Entreprenly connects WhatsApp, validated inventory, and financial control for small fresh-food businesses." />
+  <link rel="icon" type="image/png" href="./assets/brand-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    // Apply saved theme/language before paint to avoid a flash.
+    (function () {
+      try {
+        var theme = localStorage.getItem("entreprenly.theme");
+        if (theme !== "dark" && theme !== "light") theme = "light";
+        var lang = localStorage.getItem("entreprenly.language");
+        if (lang !== "es" && lang !== "en") lang = "en";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.lang = lang;
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="theme-shell theme-light min-h-screen bg-brand-white text-brand-black">
+    <div class="bg-grid-overlay pointer-events-none fixed inset-0"></div>
+
+    <header class="sticky top-0 z-50 px-2 pt-3 sm:px-4 sm:pt-4">
+      <div
+        class="relative mx-auto flex max-w-7xl items-center justify-between gap-2 rounded-full border border-brand-brownDeep/10 bg-white/80 px-3 py-3 shadow-card backdrop-blur-xl sm:gap-4 sm:px-5 sm:py-4">
+        <a href="#top" class="min-w-0 shrink">
+          <img data-brand-logo src="./assets/brand-logo-light-transparent.png" alt="Entreprenly"
+            class="h-10 max-w-[7.5rem] object-contain sm:h-13 sm:max-w-none" />
+        </a>
+
+        <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
+          <a href="#how-it-works"
+            class="nav-link rounded-full px-1 py-1 text-sm font-semibold text-brand-brownEarth transition hover:text-brand-orange"
+            data-nav-link data-i18n="nav.howItWorks">How it works</a>
+          <a href="#benefits"
+            class="nav-link rounded-full px-1 py-1 text-sm font-semibold text-brand-brownEarth transition hover:text-brand-orange"
+            data-nav-link data-i18n="nav.benefits">Benefits</a>
+          <a href="#plans"
+            class="nav-link rounded-full px-1 py-1 text-sm font-semibold text-brand-brownEarth transition hover:text-brand-orange"
+            data-nav-link data-i18n="nav.plans">Plans</a>
+          <a href="#faq"
+            class="nav-link rounded-full px-1 py-1 text-sm font-semibold text-brand-brownEarth transition hover:text-brand-orange"
+            data-nav-link data-i18n="nav.faq">FAQ</a>
+        </nav>
+
+        <div class="hidden items-center gap-2 lg:flex">
+          <button type="button" class="preference-icon-button" data-action="toggle-theme" data-i18n-aria="theme.toDark"
+            data-i18n-title="theme.toDark" aria-label="Switch to dark mode" title="Switch to dark mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"
+              aria-hidden="true">
+              <path d="M20.3 14.4A8.5 8.5 0 0 1 9.6 3.7 7 7 0 1 0 20.3 14.4z"></path>
+            </svg>
+            <span class="sr-only" data-i18n="theme.toDark">Switch to dark mode</span>
+          </button>
+
+          <div class="language-picker">
+            <button type="button" class="preference-icon-button" data-i18n-aria="lang.change"
+              data-i18n-title="lang.change" aria-label="Change language" title="Change language">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"
+                aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+              </svg>
+              <span class="sr-only" data-i18n="lang.change">Change language</span>
+            </button>
+            <div class="language-popover" role="menu" data-i18n-aria="lang.change" aria-label="Change language">
+              <button type="button" class="language-option" data-action="set-language" data-language="es"
+                aria-pressed="false">
+                <span class="font-extrabold uppercase">ES</span>
+                <span class="text-xs font-semibold" data-i18n="lang.es">Spanish</span>
+              </button>
+              <button type="button" class="language-option is-active" data-action="set-language" data-language="en"
+                aria-pressed="true">
+                <span class="font-extrabold uppercase">EN</span>
+                <span class="text-xs font-semibold" data-i18n="lang.en">English</span>
+              </button>
+            </div>
+          </div>
+
+          <a href="https://daop.entreprenly.online/login"
+            class="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-brand-brownDeep/12 bg-white/80 px-5 py-3 text-sm font-bold text-brand-brownDeep backdrop-blur transition hover:-translate-y-0.5 hover:border-brand-brownDeep/25">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-4 w-4"
+              aria-hidden="true">
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4 20a8 8 0 0 1 16 0"></path>
+            </svg>
+            <span data-i18n="nav.login">Log in</span>
+          </a>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-1 sm:gap-2 lg:hidden">
+          <button type="button" class="preference-icon-button lg:hidden" data-action="toggle-theme"
+            data-i18n-aria="theme.toDark" data-i18n-title="theme.toDark" aria-label="Switch to dark mode"
+            title="Switch to dark mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"
+              aria-hidden="true">
+              <path d="M20.3 14.4A8.5 8.5 0 0 1 9.6 3.7 7 7 0 1 0 20.3 14.4z"></path>
+            </svg>
+            <span class="sr-only" data-i18n="theme.toDark">Switch to dark mode</span>
+          </button>
+          <button type="button" class="preference-icon-button lg:hidden" data-action="toggle-language-menu"
+            aria-expanded="false" data-i18n-aria="lang.change" data-i18n-title="lang.change"
+            aria-label="Change language" title="Change language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"
+              aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+            </svg>
+            <span class="sr-only" data-i18n="lang.change">Change language</span>
+          </button>
+          <button type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-brownDeep/10 bg-brand-yellow text-brand-brownDeep sm:h-12 sm:w-12"
+            aria-expanded="false" data-i18n-aria="nav.openMenu" aria-label="Open menu" data-action="toggle-menu">
+            <span class="sr-only" data-i18n="nav.openMenu">Open menu</span>
+            <div class="flex flex-col gap-1.5">
+              <span class="h-0.5 w-4 rounded-full bg-current sm:w-5"></span>
+              <span class="h-0.5 w-4 rounded-full bg-current sm:w-5"></span>
+              <span class="h-0.5 w-4 rounded-full bg-current sm:w-5"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-preference-panel" data-mobile-language hidden>
+        <div class="grid gap-2 sm:grid-cols-2">
+          <button type="button" class="language-option is-active" data-action="set-language" data-language="es"
+            aria-pressed="false">
+            <span class="font-extrabold uppercase">ES</span>
+            <span class="text-xs font-semibold" data-i18n="lang.es">Spanish</span>
+          </button>
+          <button type="button" class="language-option" data-action="set-language" data-language="en"
+            aria-pressed="true">
+            <span class="font-extrabold uppercase">EN</span>
+            <span class="text-xs font-semibold" data-i18n="lang.en">English</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-menu-panel" data-mobile-menu hidden>
+        <nav class="flex flex-col gap-3">
+          <a href="#how-it-works"
+            class="nav-link rounded-2xl px-4 py-3 text-sm font-semibold text-brand-brownEarth transition hover:bg-brand-yellow"
+            data-nav-link data-i18n="nav.howItWorks">How it works</a>
+          <a href="#benefits"
+            class="nav-link rounded-2xl px-4 py-3 text-sm font-semibold text-brand-brownEarth transition hover:bg-brand-yellow"
+            data-nav-link data-i18n="nav.benefits">Benefits</a>
+          <a href="#plans"
+            class="nav-link rounded-2xl px-4 py-3 text-sm font-semibold text-brand-brownEarth transition hover:bg-brand-yellow"
+            data-nav-link data-i18n="nav.plans">Plans</a>
+          <a href="#faq"
+            class="nav-link rounded-2xl px-4 py-3 text-sm font-semibold text-brand-brownEarth transition hover:bg-brand-yellow"
+            data-nav-link data-i18n="nav.faq">FAQ</a>
+        </nav>
+        <div class="mt-4">
+          <a href="https://daop.entreprenly.online/login"
+            class="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full border border-brand-brownDeep/12 bg-white/80 px-5 py-3 text-sm font-bold text-brand-brownDeep backdrop-blur transition hover:-translate-y-0.5 hover:border-brand-brownDeep/25">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-4 w-4"
+              aria-hidden="true">
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4 20a8 8 0 0 1 16 0"></path>
+            </svg>
+            <span data-i18n="nav.login">Log in</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+<main id="top">
+  <section class="relative -mt-32 overflow-hidden px-4 pb-14 pt-44 sm:-mt-36 sm:pt-48">
+    <div class="hero-ambience absolute inset-0"></div>
+
+    <div class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+      
+      <div>
+        <p class="eyebrow" data-i18n="hero.eyebrow">Smart retail for real-world commerce</p>
+        <h1
+          class="max-w-[11ch] text-balance text-5xl font-extrabold leading-[0.92] tracking-[-0.02em] sm:text-6xl lg:text-[5.4rem]"
+          data-i18n="hero.title">
+          Control inventory, orders, and payments without making your business more complicated.
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-brand-gray" data-i18n="hero.subtitle">
+          Entreprenly connects WhatsApp sales, in-store service, and stock validation so you can work
+          with more order, less waste, and more confidence from day one.
+        </p>
+        
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="https://daop.entreprenly.online/register" class="cta-primary" data-i18n="hero.ctaPrimary">Start now</a>
+          <a href="#plans" class="cta-secondary" data-i18n="hero.ctaSecondary">View plans</a>
+        </div>
+      </div> 
+     <div class="flex justify-center lg:justify-end">
+       <div class="hero-character">
+
+          <div class="hero-benefit card-1">
+              <p data-i18n="heroCards.inventory">Real-time inventory</p>
+          </div>
+
+          <div class="hero-benefit card-2">
+              <p data-i18n="heroCards.orders">WhatsApp Orders</p>
+          </div>
+
+          <div class="hero-benefit card-3">
+              <p data-i18n="heroCards.finance">Financial Control</p>
+          </div>
+
+          <div class="hero-benefit card-4">
+              <p data-i18n="heroCards.alerts">Stock alerts</p>
+          </div>
+
+          <div class="hero-benefit card-5">
+              <p data-i18n="heroCards.cash">Daily cash</p>
+          </div>
+
+          <div class="hero-benefit card-6">
+              <p data-i18n="heroCards.reports">Clear reports</p>
+          </div>
+
+          <div class="character-animation">
+
+              <img class="frame frame1 img-light"
+                  src="assets/icon.png"
+                  alt="Entreprenly" decoding="async">
+              <img class="frame frame2 img-light"
+                  src="assets/icon2.png"
+                  alt="" aria-hidden="true" decoding="async">
+              <img class="frame frame3 img-light"
+                  src="assets/icon3.png"
+                  alt="" aria-hidden="true" decoding="async">
+
+          </div>
+      </div> 
+
+    </div>
+  </section>
+</main>
+
+      <section class="px-4 py-20 section-accent bg-brand-peach/25">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p class="eyebrow" data-i18n="video.eyebrow">Informational video</p>
+              <h2
+                class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+                data-i18n="video.title">See Entreprenly in action.</h2>
+              <p class="mt-4 max-w-2xl text-lg leading-8 text-brand-gray" data-i18n="video.copy">
+                Watch a short explanation of how the platform helps organize orders, inventory, and cash flow in a
+                simple workflow for small businesses.
+              </p>
+              <a href="https://youtu.be/nPIHYqd0MtM?si=6aoHcb7D3_JV-2bt" target="_blank" rel="noopener noreferrer"
+                class="cta-secondary mt-7" data-i18n="video.cta">Watch video on YouTube</a>
+            </div>
+
+            <div class="video-card">
+              <iframe class="absolute inset-0 h-full w-full"
+                src="https://www.youtube-nocookie.com/embed/nPIHYqd0MtM?si=6aoHcb7D3_JV-2bt"
+                title="Entreprenly platform" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-20">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p class="eyebrow" data-i18n="team.eyebrow">About the team</p>
+              <h2
+                class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+                data-i18n="team.title">Meet the team</h2>
+              <p class="mt-4 max-w-2xl text-lg leading-8 text-brand-gray" data-i18n="team.copy">
+                Meet the team building Entreprenly and the vision behind the platform.
+              </p>
+              <a href="https://youtu.be/nKPs_WnLaX4" target="_blank" rel="noopener noreferrer"
+                class="cta-secondary mt-7" data-i18n="team.cta">Watch team video on YouTube</a>
+            </div>
+
+            <div class="video-card">
+              <iframe class="absolute inset-0 h-full w-full" src="https://www.youtube-nocookie.com/embed/nKPs_WnLaX4"
+                title="Entreprenly team" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-20">
+        <div class="mx-auto max-w-7xl">
+          <div style="padding-bottom: 3%;" class="max-w-3xl">
+            <p class="eyebrow" data-i18n="problem.eyebrow">The problem</p>
+            <h2
+              class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+              data-i18n="problem.title">Your business does not lose only by selling less. It also loses by operating
+              blind.</h2>
+            <p class="mt-5 text-lg leading-relaxed text-brand-gray" data-i18n="problem.copy">Between notebooks, memory,
+              WhatsApp, and cash closing, small daily errors end up costing time, products, and trust.</p>
+          </div>
+          <div class="grid gap-5 lg:grid-cols-3">
+            <article class="soft-card bg-brand-peach/25">
+              <span class="pill-tag" data-i18n="pain1.tag">Multi-channel chaos</span>
+              <h3 class="mt-4 text-2xl font-bold tracking-normal text-brand-black" data-i18n="pain1.title">Chat orders
+                and in-store sales do not talk to each other.</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="pain1.copy">When each channel is handled separately,
+                stock stops being a reliable source for selling with confidence.</p>
+            </article>
+            <article class="soft-card bg-brand-peach/25">
+              <span class="pill-tag" data-i18n="pain2.tag">Manual control</span>
+              <h3 class="mt-4 text-2xl font-bold tracking-normal text-brand-black" data-i18n="pain2.title">Inventory
+                depends on eyesight, notebooks, or memory.</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="pain2.copy">That slows operations down and makes
+                mismatches appear right when you need clarity most.</p>
+            </article>
+            <article class="soft-card bg-brand-peach/25">
+              <span class="pill-tag" data-i18n="pain3.tag">Messy cash flow</span>
+              <h3 class="mt-4 text-2xl font-bold tracking-normal text-brand-black" data-i18n="pain3.title">Cash, digital
+                payments, and vouchers get mixed without a clear view.</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="pain3.copy">Closing becomes heavy, reconciliation
+                takes longer, and errors stay hidden until the end of the shift.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-20 section-toned bg-brand-yellow/40">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+            <div class="max-w-3xl">
+              <p class="eyebrow" data-i18n="features.eyebrow">Core features</p>
+              <h2
+                class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+                data-i18n="features.title">Four key pieces to organize an operation that is currently scattered.</h2>
+            </div>
+            <p class="text-lg leading-8 text-brand-gray" data-i18n="features.copy">The landing page explains the product
+              value without feeling like a dashboard: clear technology, simple visuals, and concrete benefits for
+              non-technical merchants.</p>
+          </div>
+
+          <div class="mt-10 grid items-stretch gap-6 lg:grid-cols-2">
+            <article class="soft-card flex min-h-65 flex-col bg-white/90">
+              <img class="s2-image" src=assets/wsp-sc.png>
+              <h3 class="mt-5 text-2xl font-bold tracking-normal" data-i18n="feature1.title">WhatsApp orders</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="feature1.copy">Organize the channel your customers
+                use most without depending on a phone all day.</p>
+            </article>
+            <article class="soft-card flex min-h-65 flex-col bg-white/90">
+              <img class="s2-image" src=assets/inventory-sc.png>
+              <h3 class="mt-5 text-2xl font-bold tracking-normal" data-i18n="feature2.title">Real-time inventory</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="feature2.copy">Check updated availability to sell
+                with better judgment and replenish before stockouts.</p>
+            </article>
+            <article class="soft-card flex min-h-65 flex-col bg-white/90">
+              <img class="s2-image" src=assets/suscription-sc.png>
+              <h3 class="mt-5 text-2xl font-bold tracking-normal" data-i18n="feature3.title">Subscription and billing</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="feature3.copy">Manage your plan and payments from one
+                place, with a clear view of what you pay each month.</p>
+            </article>
+            <article class="soft-card flex min-h-65 flex-col bg-white/90">
+              <img class="s2-image" src=assets/sales-sc.png>
+              <h3 class="mt-5 text-2xl font-bold tracking-normal" data-i18n="feature4.title">Financial control and
+                reconciliation</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="feature4.copy">Separate cash and electronic payments
+                to close the day with a clearer, more organized view.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="px-4 py-20">
+        <div class="mx-auto max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="eyebrow" data-i18n="steps.eyebrow">How it works</p>
+            <h2 style="padding-bottom: 5%;"
+              class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+              data-i18n="steps.title">Adoption designed for businesses that do not have time for complicated systems.
+            </h2>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <a class="scale-card soft-card bg-white/90" href="https://daop.entreprenly.online/login">
+              <article>
+                <div
+                  class="inline-grid h-11 w-11 place-items-center rounded-full bg-brand-yellow text-lg font-extrabold text-brand-brownDeep">
+                  1</div>
+                <img class="s3-image" src="assets/product-edit.png">
+                <h3 class="mt-4 text-2xl font-bold tracking-normal" data-i18n="step1.title">Organize your base</h3>
+                <p class="mt-4 leading-8 text-brand-gray" data-i18n="step1.copy">Register products and key operating
+                  points in a guided flow.</p>
+              </article>
+            </a>
+            <a class="scale-card soft-card bg-white/90" href="https://daop.entreprenly.online/login">
+            <article>
+              <div
+                class="inline-grid h-11 w-11 place-items-center rounded-full bg-brand-yellow text-lg font-extrabold text-brand-brownDeep">
+                2</div>
+              <img class="s3-image" src="assets/connect-sc.png">
+              <h3 class="mt-4 text-2xl font-bold tracking-normal" data-i18n="step2.title">Connect your channels</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="step2.copy">WhatsApp and the store stop working
+                separately and start sharing context.</p>
+            </article>
+            </a>
+            <a class="scale-card soft-card bg-white/90" href="https://daop.entreprenly.online/login">
+            <article>
+              <div
+                class="inline-grid h-11 w-11 place-items-center rounded-full bg-brand-yellow text-lg font-extrabold text-brand-brownDeep">
+                3</div>
+              <img class="s3-image" src="assets/billing.png">
+              <h3 class="mt-4 text-2xl font-bold tracking-normal" data-i18n="step3.title">Manage your subscription</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="step3.copy">Activate your plan and keep billing
+                organized without extra steps.</p>
+            </article>
+            </a>
+            <a class="scale-card soft-card bg-white/90" href="https://daop.entreprenly.online/login">
+            <article>
+              <div
+                class="inline-grid h-11 w-11 place-items-center rounded-full bg-brand-yellow text-lg font-extrabold text-brand-brownDeep">
+                4</div>
+              <img class="s3-image" src="assets/lots-recorded.png">
+              <h3 class="mt-4 text-2xl font-bold tracking-normal" data-i18n="step4.title">Collect with more control</h3>
+              <p class="mt-4 leading-8 text-brand-gray" data-i18n="step4.copy">Income is organized better and end-of-day
+                closing becomes clearer.</p>
+            </article>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="benefits" class="px-4 py-20 section-accent bg-brand-peach/25">
+        <div class="mx-auto max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="eyebrow" data-i18n="benefits.eyebrow">Benefits for the merchant</p>
+            <h2
+              class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+              data-i18n="benefits.title">Fewer errors. Less waste. More control.</h2>
+            <p class="mt-5 text-lg leading-relaxed text-brand-gray" data-i18n="benefits.copy">Entreprenly is designed
+              for micro-businesses that need operational order without added friction or heavy learning.</p>
+          </div>
+
+          <div class="mt-8 grid gap-8 lg:grid-cols-[1.14fr_0.86fr]">
+            <div class="grid gap-4">
+              <article class="soft-card bg-white/92">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="benefit1.title">Fewer manual errors</h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="benefit1.copy">Less dependence on loose notes,
+                  memory, or late reviews.</p>
+              </article>
+              <article class="soft-card bg-white/92">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="benefit2.title">Less loss from perishables
+                </h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="benefit2.copy">Greater visibility to detect
+                  shortages, excess rotation, or waste.</p>
+              </article>
+              <article class="soft-card bg-white/92">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="benefit3.title">More daily control</h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="benefit3.copy">A clearer view of inventory, orders,
+                  and payments from the same ecosystem.</p>
+              </article>
+              <article class="soft-card bg-white/92">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="benefit4.title">Faster operations</h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="benefit4.copy">Faster decisions to sell, respond,
+                  replenish, and close cash.</p>
+              </article>
+            </div>
+
+            <aside
+              class="benefit-summary flex h-full w-full flex-col rounded-[1.35rem] border border-brand-brownDeep/10 bg-brand-yellow px-5 py-5 shadow-soft">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <span class="mini-tag" data-i18n="benefits.summaryTag">Visual summary</span>
+                <span
+                  class="rounded-full bg-white/75 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-brand-brownDeep/70"
+                  data-i18n="benefits.simpleOp">Simple operation</span>
+              </div>
+
+              <p class="mt-4 text-sm leading-6 text-brand-gray" data-i18n="benefits.summaryCopy">A quick view of what
+                merchants gain when they work with a more organized operation.</p>
+
+              <ul class="mt-5 space-y-3">
+                <li
+                  class="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/72 px-3.5 py-3 text-brand-brownDeep shadow-[0_8px_20px_rgba(81,30,0,0.05)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-sm font-semibold leading-6" data-i18n="benefits.li1">Clear interface for daily
+                    tasks.</span>
+                </li>
+                <li
+                  class="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/72 px-3.5 py-3 text-brand-brownDeep shadow-[0_8px_20px_rgba(81,30,0,0.05)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-sm font-semibold leading-6" data-i18n="benefits.li2">Agile flows to sell, replenish,
+                    and collect.</span>
+                </li>
+                <li
+                  class="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/72 px-3.5 py-3 text-brand-brownDeep shadow-[0_8px_20px_rgba(81,30,0,0.05)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-sm font-semibold leading-6" data-i18n="benefits.li3">More visible stock to avoid
+                    shortages and waste.</span>
+                </li>
+                <li
+                  class="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/72 px-3.5 py-3 text-brand-brownDeep shadow-[0_8px_20px_rgba(81,30,0,0.05)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-sm font-semibold leading-6" data-i18n="benefits.li4">Fast adoption without heavy
+                    training.</span>
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-20">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-8 lg:grid-cols-2">
+            <div class="max-w-3xl">
+              <p class="eyebrow" data-i18n="trust.eyebrow">Trust for the end customer</p>
+              <h2
+                class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+                data-i18n="trust.title">If stock is real, buying by chat also becomes more reliable.</h2>
+              <p class="mt-5 text-lg leading-relaxed text-brand-gray" data-i18n="trust.copy">The merchant gains
+                operational order, while the customer also gets faster responses, less uncertainty, and clearer
+                confirmations.</p>
+            </div>
+
+            <div class="grid gap-4">
+              <article class="soft-card bg-white/90">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="trust1.title">Validated stock</h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="trust1.copy">Less risk of promising products that
+                  are no longer available.</p>
+              </article>
+              <article class="soft-card bg-white/90">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="trust2.title">Confirmed payments</h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="trust2.copy">More clarity for purchases made
+                  through digital payment methods.</p>
+              </article>
+              <article class="soft-card bg-white/90">
+                <h3 class="text-2xl font-bold tracking-normal" data-i18n="trust3.title">Faster service</h3>
+                <p class="mt-3 leading-8 text-brand-gray" data-i18n="trust3.copy">A better-organized conversational flow
+                  improves how customers perceive the business.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-20 section-toned bg-brand-yellow/40">
+        <div class="mx-auto max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="eyebrow" data-i18n="compare.eyebrow">Short comparison</p>
+            <h2
+              class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+              data-i18n="compare.title">Entreprenly is not trying to look like an ERP. It focuses on solving the real
+              work of small commerce.</h2>
+            <p class="mt-5 text-lg leading-relaxed text-brand-gray" data-i18n="compare.copy">The difference is not only
+              digitizing tasks, but connecting orders, stock, and cash flow with logic grounded in the business rhythm.
+            </p>
+          </div>
+          <div class="mt-10 overflow-hidden rounded-[1.8rem] border border-brand-brownDeep/10 bg-white/86 shadow-card">
+            <div class="overflow-x-auto">
+              <div class="min-w-230">
+                <div class="grid grid-cols-[1.08fr_repeat(3,minmax(0,1fr))]">
+                  <div
+                    class="bg-brand-black px-5 py-4 text-center text-[11px] font-extrabold uppercase tracking-[0.16em] text-brand-white"
+                    data-i18n="compare.criterion">Criteria</div>
+                  <div class="border-l px-5 py-4 border-brand-brownDeep/10 bg-[#F6F4F4]/84 text-brand-brownDeep">
+                    <div class="flex items-center justify-center gap-2 text-center">
+                      <p class="text-[11px] font-extrabold uppercase tracking-[0.16em]" data-i18n="compare.colManual">
+                        Manual management</p>
+                    </div>
+                  </div>
+                  <div class="border-l px-5 py-4 border-brand-brownDeep/10 bg-[#F6F4F4]/84 text-brand-brownDeep">
+                    <div class="flex items-center justify-center gap-2 text-center">
+                      <p class="text-[11px] font-extrabold uppercase tracking-[0.16em]" data-i18n="compare.colGeneric">
+                        Generic systems</p>
+                    </div>
+                  </div>
+                  <div class="border-l px-5 py-4 border-brand-orange/15 bg-brand-yellow text-brand-brownDeep">
+                    <div class="flex items-center justify-center gap-2 text-center">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        class="h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                        <path d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <p class="text-[11px] font-extrabold uppercase tracking-[0.16em]"
+                        data-i18n="compare.colEntreprenly">Entreprenly</p>
+                    </div>
+                  </div>
+
+                  <div class="contents">
+                    <div class="flex items-center justify-center border-t border-brand-brownDeep/10 px-5 py-5 bg-white">
+                      <p class="text-center text-base font-bold leading-6 text-brand-black" data-i18n="cmp1.criterion">
+                        WhatsApp orders</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-white">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp1.manual">Handled through chats
+                        and loose notes.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-white">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp1.generic">They do not always
+                        stay inside the same flow.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-orange/15 bg-brand-yellow/18">
+                      <p class="text-sm leading-7 font-semibold text-brand-brownDeep" data-i18n="cmp1.entreprenly">They
+                        connect with order, stock, and tracking.</p>
+                    </div>
+                  </div>
+
+                  <div class="contents">
+                    <div
+                      class="flex items-center justify-center border-t border-brand-brownDeep/10 px-5 py-5 bg-[#F6F4F4]/72">
+                      <p class="text-center text-base font-bold leading-6 text-brand-black" data-i18n="cmp2.criterion">
+                        Reliable stock</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-[#F6F4F4]/72">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp2.manual">Depends on visual
+                        counts and late checks.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-[#F6F4F4]/72">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp2.generic">There is a digital
+                        record, but no continuous physical validation.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-orange/15 bg-brand-yellow/18">
+                      <p class="text-sm leading-7 font-semibold text-brand-brownDeep" data-i18n="cmp2.entreprenly">
+                        Validated with real-time alerts.</p>
+                    </div>
+                  </div>
+
+                  <div class="contents">
+                    <div class="flex items-center justify-center border-t border-brand-brownDeep/10 px-5 py-5 bg-white">
+                      <p class="text-center text-base font-bold leading-6 text-brand-black" data-i18n="cmp3.criterion">
+                        Team adoption</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-white">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp3.manual">Creates repeated errors
+                        and a lot of rework.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-white">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp3.generic">Often feels heavy for
+                        small teams.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-orange/15 bg-brand-yellow/18">
+                      <p class="text-sm leading-7 font-semibold text-brand-brownDeep" data-i18n="cmp3.entreprenly">
+                        Prioritizes a simple, visual, and clear operation.</p>
+                    </div>
+                  </div>
+
+                  <div class="contents">
+                    <div
+                      class="flex items-center justify-center border-t border-brand-brownDeep/10 px-5 py-5 bg-[#F6F4F4]/72">
+                      <p class="text-center text-base font-bold leading-6 text-brand-black" data-i18n="cmp4.criterion">
+                        Operational focus</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-[#F6F4F4]/72">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp4.manual">Work happens reactively
+                        after the problem has already occurred.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-brownDeep/10 bg-[#F6F4F4]/72">
+                      <p class="text-sm leading-7 text-brand-brownEarth" data-i18n="cmp4.generic">Usually broad, but not
+                        grounded enough for small commerce.</p>
+                    </div>
+                    <div class="border-l border-t px-5 py-5 border-brand-orange/15 bg-brand-yellow/18">
+                      <p class="text-sm leading-7 font-semibold text-brand-brownDeep" data-i18n="cmp4.entreprenly">
+                        Focuses on perishables, rotation, orders, and daily cash flow.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="plans" class="px-4 py-20">
+        <div class="mx-auto max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="eyebrow" data-i18n="plans.eyebrow">Plans</p>
+            <h2
+              class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+              data-i18n="plans.title">Start free and scale when your operation needs more control.</h2>
+            <p class="mt-5 text-lg leading-relaxed text-brand-gray" data-i18n="plans.copy">Free Plan organizes basic
+              inventory, while Control Plan integrates sales, orders, cash flow, and traceability in one workflow.</p>
+          </div>
+
+          <div class="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-2">
+            <article class="soft-card flex flex-col bg-white/90">
+              <div class="flex items-start justify-between gap-4">
+                <span class="mini-tag" data-i18n="planFree.name">Free Plan</span>
+              </div>
+              <h3 class="mt-5 min-h-[4.5rem] text-3xl font-bold tracking-[-0.01em]" data-i18n="planFree.title">Basic
+                inventory to start at no cost</h3>
+              <p class="mt-3 leading-7 text-brand-gray" data-i18n="planFree.description">For businesses that want to
+                leave the notebook behind and organize the essentials before digitizing sales and orders.</p>
+
+              <div class="mt-6 rounded-[1.35rem] border border-brand-brownDeep/10 bg-white/75 p-4">
+                <div class="flex items-end justify-between gap-4">
+                  <div>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-brand-brownDeep/45"
+                      data-cycle-label data-i18n="plans.monthlyLabel">Monthly</p>
+                    <p class="mt-1 text-3xl font-extrabold tracking-[-0.01em] text-brand-brownDeep" data-price
+                      data-price-monthly="S/ 0" data-price-annual="S/ 0">S/ 0</p>
+                    <p class="text-sm font-semibold text-brand-gray" data-i18n="plans.perMonth">per month</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-xs font-semibold text-brand-orange" data-cycle-note
+                      data-note-monthly="planFree.noteMonthly" data-note-annual="planFree.noteAnnual"
+                      data-i18n="planFree.noteMonthly">Always free</p>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="mt-6 mb-8 space-y-4">
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planFree.item1">Up to 40 products and 20 active batches.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planFree.item2">1 user with dashboard access.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planFree.item3">Basic product, batch, search, and inventory alert
+                    management.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planFree.item4">Manual stock lookup and simple web control.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planFree.item5">No WhatsApp chatbot or advanced automations.</span>
+                </li>
+              </ul>
+              <a href="https://daop.entreprenly.online/register" class="cta-secondary mt-auto justify-center"
+                data-i18n="planFree.cta">Start now</a>
+            </article>
+
+            <article class="soft-card flex flex-col border-brand-orange/30 bg-brand-yellow/50">
+              <div class="flex items-start justify-between gap-4">
+                <span class="mini-tag" data-i18n="planControl.name">Control Plan</span>
+                <span
+                  class="rounded-full border border-brand-orange/20 bg-brand-yellow/40 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-brand-orange"
+                  data-i18n="plans.recommended">Recommended</span>
+              </div>
+              <h3 class="mt-5 min-h-[4.5rem] text-3xl font-bold tracking-[-0.01em]" data-i18n="planControl.title">
+                Everything needed to operate with more order every day</h3>
+              <p class="mt-3 leading-7 text-brand-gray" data-i18n="planControl.description">Unify inventory, sales,
+                orders, and cash flow in one workflow for businesses that already need more control.</p>
+
+              <div class="mt-6 flex flex-col items-center gap-3">
+                <div class="billing-toggle">
+                  <button type="button" data-action="set-landing-billing" data-cycle="monthly"
+                    class="billing-option is-active">
+                    <span data-i18n="plans.billMonthly">Monthly</span>
+                  </button>
+                  <button type="button" data-action="set-landing-billing" data-cycle="annual" class="billing-option">
+                    <span data-i18n="plans.billAnnual">Annual</span>
+                    <span class="billing-save">-11%</span>
+                  </button>
+                </div>
+                <p class="billing-note" data-i18n="plans.annualNote">The annual plan lowers the monthly cost with a
+                  12-month commitment and month-to-month billing.</p>
+              </div>
+
+              <div class="mt-6 rounded-[1.35rem] border border-brand-brownDeep/10 bg-white/75 p-4">
+                <div class="flex items-end justify-between gap-4">
+                  <div>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-brand-brownDeep/45"
+                      data-cycle-label data-i18n="plans.monthlyLabel">Monthly</p>
+                    <p class="mt-1 text-3xl font-extrabold tracking-[-0.01em] text-brand-brownDeep" data-price
+                      data-price-monthly="S/ 89" data-price-annual="S/ 79">S/ 89</p>
+                    <p class="text-sm font-semibold text-brand-gray" data-i18n="plans.perMonth">per month</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-xs font-semibold text-brand-orange" data-cycle-note
+                      data-note-monthly="planControl.noteMonthly" data-note-annual="planControl.noteAnnual"
+                      data-i18n="planControl.noteMonthly">Monthly billing</p>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="mt-6 mb-8 space-y-4">
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planControl.item1">Unlimited products and batches.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planControl.item2">Up to 5 users with dashboard access and simple
+                    roles.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planControl.item3">WhatsApp chatbot for catalog, orders, and stock
+                    validation.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planControl.item4">Sales module with daily cash summary by payment
+                    method.</span>
+                </li>
+                <li class="flex items-start gap-3 text-brand-gray">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    class="mt-1 h-4 w-4 shrink-0 text-brand-orange" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="leading-5" data-i18n="planControl.item5">Operational alerts, traceability, and more
+                    complete reports.</span>
+                </li>
+              </ul>
+              <a href="https://daop.entreprenly.online/register" class="cta-primary mt-auto justify-center"
+                data-i18n="planControl.cta">Choose plan</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="px-4 py-20">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-8 lg:grid-cols-2">
+            <div class="max-w-3xl">
+              <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+              <h2
+                class="text-balance text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-black md:text-5xl"
+                data-i18n="faq.title">Common questions before taking the next step.</h2>
+              <p class="mt-5 text-lg leading-relaxed text-brand-gray" data-i18n="faq.copy">The landing page answers
+                basic questions quickly, without overloading a non-specialist user with technical details.</p>
+            </div>
+            <div class="grid gap-4">
+              <details class="faq-item soft-card group bg-white/92 open:bg-brand-yellow/35">
+                <summary
+                  class="relative cursor-pointer list-none pr-12 text-lg font-bold tracking-[-0.02em] text-brand-black marker:hidden">
+                  <span data-i18n="faq1.q">Do I need to know technology to use Entreprenly?</span>
+                  <span aria-hidden="true" class="faq-plus">+</span>
+                </summary>
+                <p class="mt-4 leading-8 text-brand-gray" data-i18n="faq1.a">No. The product is designed for merchants
+                  who need a simple, clear tool they can apply from day one.</p>
+              </details>
+              <details class="faq-item soft-card group bg-white/92 open:bg-brand-yellow/35">
+                <summary
+                  class="relative cursor-pointer list-none pr-12 text-lg font-bold tracking-[-0.02em] text-brand-black marker:hidden">
+                  <span data-i18n="faq2.q">Can I start without integrating everything from the beginning?</span>
+                  <span aria-hidden="true" class="faq-plus">+</span>
+                </summary>
+                <p class="mt-4 leading-8 text-brand-gray" data-i18n="faq2.a">Yes. The commercial structure proposes
+                  staged adoption so the business can move at its own pace and need.</p>
+              </details>
+              <details class="faq-item soft-card group bg-white/92 open:bg-brand-yellow/35">
+                <summary
+                  class="relative cursor-pointer list-none pr-12 text-lg font-bold tracking-[-0.02em] text-brand-black marker:hidden">
+                  <span data-i18n="faq3.q">Can I change or cancel my subscription at any time?</span>
+                  <span aria-hidden="true" class="faq-plus">+</span>
+                </summary>
+                <p class="mt-4 leading-8 text-brand-gray" data-i18n="faq3.a">Yes. You can adjust or cancel your plan
+                  whenever you need, with no long-term lock-in.</p>
+              </details>
+              <details class="faq-item soft-card group bg-white/92 open:bg-brand-yellow/35">
+                <summary
+                  class="relative cursor-pointer list-none pr-12 text-lg font-bold tracking-[-0.02em] text-brand-black marker:hidden">
+                  <span data-i18n="faq4.q">Does it help if I already sell through WhatsApp every day?</span>
+                  <span aria-hidden="true" class="faq-plus">+</span>
+                </summary>
+                <p class="mt-4 leading-8 text-brand-gray" data-i18n="faq4.a">That is exactly where much of the value is:
+                  organizing that channel, reducing errors, and connecting it better with daily operations.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cta" class="px-4 pb-16 pt-6">
+        <div
+          class="mx-auto grid max-w-7xl gap-8 rounded-4xl bg-brand-brownDeep px-6 py-10 shadow-soft md:px-10 lg:grid-cols-[1.2fr_auto] lg:items-center">
+          <div>
+            <p class="eyebrow text-brand-white before:bg-brand-orange" data-i18n="cta.eyebrow">Take the next step</p>
+            <h2 class="text-4xl font-extrabold leading-snug tracking-[-0.01em] text-brand-white md:text-5xl"
+              data-i18n="cta.title">Make your business sell with more order and less uncertainty.</h2>
+            <p class="mt-4 max-w-2xl text-lg leading-8 text-brand-white/80" data-i18n="cta.copy">
+              Entreprenly is designed to help you control what matters without making your operation harder to manage.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="https://daop.entreprenly.online/register" class="cta-primary" data-i18n="cta.primary">Start now</a>
+            <a href="#plans" class="cta-secondary border-white/15 bg-white/10 text-brand-white"
+              data-i18n="cta.secondary">View plans</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="px-4 pb-10">
+      <div
+        class="mx-auto max-w-7xl rounded-[1.85rem] border border-brand-brownDeep/10 bg-white/88 px-6 py-8 shadow-card md:px-8">
+        <div class="grid gap-8 text-center lg:grid-cols-[1.35fr_0.85fr_0.85fr] lg:text-left">
+          <div class="flex flex-col items-center lg:items-start">
+            <img data-brand-logo src="./assets/brand-logo-light-transparent.png" alt="Entreprenly"
+              class="h-12 w-auto sm:h-13" />
+            <p class="mt-4 max-w-md leading-8 text-brand-gray" data-i18n="footer.tagline">Smart retail for small
+              businesses that need to organize inventory, orders, and cash flow without adding operational complexity.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-bold text-brand-black" data-i18n="footer.exploreTitle">Explore</h3>
+            <ul class="mt-4 space-y-3 text-brand-gray">
+              <li class="leading-6"><a href="#how-it-works" data-i18n="nav.howItWorks">How it works</a></li>
+              <li class="leading-6"><a href="#benefits" data-i18n="nav.benefits">Benefits</a></li>
+              <li class="leading-6"><a href="#plans" data-i18n="nav.plans">Plans</a></li>
+              <li class="leading-6"><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-base font-bold text-brand-black" data-i18n="footer.nextTitle">Next step</h3>
+            <ul class="mt-4 space-y-3 text-brand-gray">
+              <li class="leading-6"><a href="https://daop.entreprenly.online/register" data-i18n="footer.signup">Sign
+                  up</a></li>
+              <li class="leading-6"><a href="#plans" data-i18n="footer.comparePlans">Compare plans</a></li>
+              <li class="leading-6"><a href="#faq" data-i18n="footer.answerDoubts">Answer questions</a></li>
+              <li class="leading-6"><a href="#top" data-i18n="footer.backTop">Back to top</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-8 flex flex-col items-center gap-3 border-t border-brand-brownDeep/10 pt-5 text-center text-sm text-brand-gray sm:flex-row sm:justify-between sm:text-left">
+          <p>&copy; <span data-year>2026</span> <span data-i18n="footer.copyright">Entreprenly by Kauflink. All rights
+              reserved.</span></p>
+          <p class="sm:text-right" data-i18n="footer.designed">Designed for small businesses that need more control and
+            less friction.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+
+</html>
