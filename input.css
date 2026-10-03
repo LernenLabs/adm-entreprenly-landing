@@ -124,11 +124,6 @@
     @apply rounded-3xl border border-brand-brownDeep/10 p-6 shadow-card;
   }
 
-  .video-card {
-    @apply relative aspect-video overflow-hidden rounded-[1.75rem] border border-brand-brownDeep/10
-           bg-brand-black shadow-soft;
-  }
-
   .mini-tag {
     @apply inline-flex rounded-full bg-brand-brownDeep/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-brand-brownDeep;
   }
@@ -349,9 +344,7 @@
   .hero-ambience::before,
   .hero-ambience::after,
   .hero-float-card,
-  .hero-benefit,
-  .character-animation,
-  .frame {
+  .hero-benefit {
     animation: none !important;
   }
 
@@ -444,8 +437,7 @@
 .theme-dark .benefit-summary,
 .theme-dark .mobile-preference-panel,
 .theme-dark .mobile-menu-panel,
-.theme-dark .language-popover,
-.theme-dark .video-card {
+.theme-dark .language-popover {
   background: rgba(20, 16, 14, 0.9) !important;
   border-color: rgba(255, 247, 225, 0.12) !important;
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28) !important;
@@ -674,76 +666,300 @@
   }
 }
 
-/* ─── Animación de frames del personaje ───────────────────────────────────── */
+.platform-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
 
-.character-animation {
+.platform-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.6rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(81, 30, 0, 0.12);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.76);
+  color: #2e2019;
+  font-size: 0.8rem;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(81, 30, 0, 0.06);
+}
+
+.platform-label-mark {
+  display: grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  place-items: center;
+  border-radius: 0.45rem;
+  background: #fff0db;
+  color: #a34808;
+  font-size: 0.75rem;
+}
+
+.app-phone-mockup {
   position: relative;
-  /* algo más chico en móvil para dejar aire a las tarjetas flotantes */
-  width: min(430px, 62vw);
-  aspect-ratio: 1 / 1;
-  height: auto;
   z-index: 1;
-  /* Tarjeta blanca limpia en ambos temas (igual que el modo oscuro). */
-  background: #ffffff;
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 24px 60px rgba(81, 30, 0, 0.14);
-  /* Animación por movimiento (flotación), sin cambiar de frame → sin parpadeo. */
-  animation: floatCharacter 5.5s ease-in-out infinite;
+  width: min(260px, 72vw);
+  height: 500px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 43px;
+  background: linear-gradient(145deg, #393431, #11100f 72%);
+  box-shadow: 0 30px 75px rgba(43, 24, 12, 0.24);
+  transform: rotate(2deg);
 }
 
-@keyframes floatCharacter {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(-1.2deg);
-  }
-}
-
-/* En modo oscuro la tarjeta usa una sombra más marcada para separarse del fondo. */
-.theme-dark .character-animation {
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
-}
-
-/* Personaje animado: los 3 frames se apilan y se muestran por turnos
-   (icon → icon2 → icon3) para dar la sensación de movimiento. */
-.frame {
+.app-phone-island {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  z-index: 3;
+  top: 9px;
+  left: 50%;
+  width: 84px;
+  height: 19px;
+  border-radius: 0 0 13px 13px;
+  background: #171514;
+  transform: translateX(-50%);
+}
+
+.app-phone-screen {
+  display: flex;
   height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  will-change: opacity;
-  animation: characterFrames 1.2s steps(1, end) infinite;
+  flex-direction: column;
+  gap: 9px;
+  overflow: hidden;
+  padding: 12px 13px 9px;
+  border-radius: 35px;
+  background: #fffaf4;
+  color: #39271d;
 }
 
-/* Cada frame es visible en su tercio del ciclo; los delays negativos
-   escalonan el orden sin esperar a que arranque la animación. */
-.frame1 {
-  opacity: 1;
-  animation-delay: -0.2s;
+.app-phone-status,
+.app-phone-brand,
+.app-phone-list-heading,
+.app-phone-product,
+.app-phone-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.frame2 {
-  animation-delay: -0.6s;
+.app-phone-status {
+  min-height: 15px;
+  padding: 0 7px;
+  font-size: 0.58rem;
+  font-weight: 800;
 }
 
-.frame3 {
-  animation-delay: -1s;
+.app-phone-status-icons {
+  color: #39271d;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
 }
 
-@keyframes characterFrames {
-  0%,
-  33.333% {
-    opacity: 1;
-  }
-  33.334%,
-  100% {
-    opacity: 0;
-  }
+.app-phone-brand {
+  justify-content: flex-start;
+  gap: 0.55rem;
+  min-height: 33px;
+}
+
+.app-phone-brand img {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.app-phone-brand div,
+.app-phone-product > span:nth-child(2),
+.app-phone-stats > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.app-phone-brand strong {
+  font-size: 0.72rem;
+  line-height: 1.1;
+}
+
+.app-phone-brand small {
+  margin-top: 0.15rem;
+  color: #8b766a;
+  font-size: 0.48rem;
+}
+
+.app-phone-menu {
+  margin-left: auto;
+  color: #8b766a;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.app-phone-section-title {
+  margin-top: 0.2rem;
+  font-size: 0.87rem;
+  font-weight: 800;
+}
+
+.app-phone-sales {
+  position: relative;
+  display: flex;
+  min-height: 92px;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+  padding: 0.75rem 0.85rem;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f38313, #d95111);
+  color: white;
+}
+
+.app-phone-sales > span {
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.app-phone-sales > strong {
+  font-size: 1.22rem;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.app-phone-chart {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  display: flex;
+  height: 24px;
+  align-items: end;
+  gap: 3px;
+  opacity: 0.58;
+}
+
+.app-phone-chart i {
+  width: 4px;
+  border-radius: 4px;
+  background: #fff9ed;
+}
+
+.app-phone-chart i:nth-child(1),
+.app-phone-chart i:nth-child(5) { height: 35%; }
+.app-phone-chart i:nth-child(2),
+.app-phone-chart i:nth-child(7) { height: 65%; }
+.app-phone-chart i:nth-child(3) { height: 48%; }
+.app-phone-chart i:nth-child(4),
+.app-phone-chart i:nth-child(6) { height: 100%; }
+
+.app-phone-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.app-phone-stats > div {
+  gap: 0.13rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(81, 30, 0, 0.08);
+  border-radius: 13px;
+  background: #fff;
+}
+
+.app-phone-stats span,
+.app-phone-list-heading span {
+  color: #8b766a;
+  font-size: 0.53rem;
+}
+
+.app-phone-stats strong {
+  font-size: 0.86rem;
+  line-height: 1.1;
+}
+
+.app-phone-stats small,
+.app-phone-product small {
+  color: #9b8679;
+  font-size: 0.48rem;
+}
+
+.app-phone-list-heading {
+  margin-top: 0.15rem;
+}
+
+.app-phone-list-heading strong {
+  font-size: 0.7rem;
+}
+
+.app-phone-product {
+  justify-content: flex-start;
+  gap: 0.5rem;
+  min-height: 33px;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(81, 30, 0, 0.07);
+}
+
+.app-phone-product-icon {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  place-items: center;
+  border-radius: 9px;
+  color: #85400d;
+  font-size: 0.6rem;
+  font-weight: 800;
+}
+
+.app-phone-product-icon.orange { background: #ffe5c5; }
+.app-phone-product-icon.yellow { background: #fff0b7; }
+
+.app-phone-product > span:nth-child(2) {
+  gap: 0.08rem;
+}
+
+.app-phone-product strong {
+  font-size: 0.61rem;
+}
+
+.app-phone-product b {
+  margin-left: auto;
+  color: #5d4638;
+  font-size: 0.58rem;
+}
+
+.app-phone-nav {
+  margin-top: auto;
+  padding: 0.45rem 0.1rem 0;
+  border-top: 1px solid rgba(81, 30, 0, 0.08);
+}
+
+.app-phone-nav span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  color: #9b8679;
+}
+
+.app-phone-nav i {
+  font-size: 0.75rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+.app-phone-nav small {
+  font-size: 0.45rem;
+}
+
+.app-phone-nav .active {
+  color: #bd570e;
+  font-weight: 800;
+}
+
+.theme-dark .app-phone-mockup {
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.48);
 }
 
 /* ─── Ajustes responsive del hero ─────────────────────────────────────────── */
