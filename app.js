@@ -15,7 +15,7 @@ const STORAGE_KEYS = {
 
 const SUPPORTED_LANGUAGES = ["en", "es"];
 const DEFAULT_LANGUAGE = "en";
-const DEFAULT_THEME = "light";
+const DEFAULT_THEME = "dark";
 
 // Login and sign up always point to the main application.
 const APP_BASE_URL = "https://daop.entreprenly.online";
@@ -92,10 +92,21 @@ async function loadDictionary(language) {
 
 function applyTranslations() {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
-    el.textContent = tr(el.dataset.i18n);
+    const text = tr(el.dataset.i18n);
+    el.textContent = text;
+    if (el.dataset.highlight) {
+      const word = tr(el.dataset.highlight);
+      const start = text.indexOf(word);
+      if (start < 0) return;
+      const accent = document.createElement("span");
+      accent.className = "section-highlight";
+      accent.textContent = word;
+      el.replaceChildren(text.slice(0, start), accent, text.slice(start + word.length));
+    }
   });
   document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
-    el.setAttribute("aria-label", tr(el.dataset.i18nAria));
+    if (el.tagName === "IMG") el.alt = tr(el.dataset.i18nAria);
+    else el.setAttribute("aria-label", tr(el.dataset.i18nAria));
   });
   document.querySelectorAll("[data-i18n-title]").forEach((el) => {
     el.setAttribute("title", tr(el.dataset.i18nTitle));
@@ -138,6 +149,7 @@ function updateBilling() {
   });
   document.querySelectorAll('[data-action="set-landing-billing"]').forEach((button) => {
     button.classList.toggle("is-active", button.dataset.cycle === state.billingCycle);
+    button.setAttribute("aria-pressed", String(button.dataset.cycle === state.billingCycle));
   });
 }
 
@@ -288,7 +300,59 @@ function closeMobilePanels() {
   syncPanels();
 }
 
+const androidPreviews = {
+  inventory: { src: "./assets/android-inventory.png", alt: "android.inventoryAlt" },
+  orders: { src: "./assets/android-orders.png", alt: "android.ordersAlt" },
+  cash: { src: "./assets/android-cash.png", alt: "android.cashAlt" },
+};
+
+const productPreviews = {
+  inventory: { src: "./assets/inventory-sc.png", alt: "hero.captureAlt", caption: "hero.captureCaption" },
+  orders: { src: "./assets/wsp-sc.png", alt: "preview.ordersAlt", caption: "preview.ordersCaption" },
+  cash: { src: "./assets/sales-sc.png", alt: "preview.cashAlt", caption: "preview.cashCaption" },
+};
+
+function setProductPreview(key) {
+  const stage = document.querySelector("#product-preview");
+  const previews = stage.dataset.platform === "android" ? androidPreviews : productPreviews;
+  const preview = Object.hasOwn(previews, key) ? previews[key] : null;
+  if (!preview) return;
+  stage.dataset.preview = key;
+  const image = document.querySelector("#preview-image");
+  image.width = stage.dataset.platform === "android" ? 460 : 1888;
+  image.height = stage.dataset.platform === "android" ? 860 : 914;
+  image.onload = () => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || !image.animate) return;
+    image.getAnimations().forEach((animation) => animation.cancel());
+    image.animate(
+      [{ opacity: 0.55, transform: "translateY(4px)" }, { opacity: 1, transform: "translateY(0)" }],
+      { duration: 220, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+    );
+  };
+  image.src = preview.src;
+  image.alt = tr(preview.alt);
+  image.dataset.i18nAria = preview.alt;
+  document.querySelectorAll('[data-action="set-preview"]').forEach((button) => {
+    const active = button.dataset.preview === key;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
 /* ─── Event wiring ────────────────────────────────────────────────────────── */
+
+function showFlowStep(step, moveFocus) {
+  if (!["order", "stock", "cash"].includes(step)) return;
+  document.querySelectorAll("[data-flow-panel]").forEach((panel) => {
+    panel.hidden = panel.dataset.flowPanel !== step;
+  });
+  document.querySelectorAll(".flow-navigation [data-flow-step]").forEach((button) => {
+    const active = button.dataset.flowStep === step;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  if (moveFocus) document.querySelector(`#flow-${step} h3`).focus({ preventScroll: true });
+}
 
 document.addEventListener("click", (event) => {
   const navLink = event.target.closest("[data-nav-link]");
@@ -303,6 +367,30 @@ document.addEventListener("click", (event) => {
 
   event.preventDefault();
   const action = actionElement.dataset.action;
+
+  if (action === "show-flow-step") {
+    showFlowStep(actionElement.dataset.flowStep, Boolean(actionElement.closest("[data-flow-panel]")));
+    return;
+  }
+
+  if (action === "set-platform") {
+    const platform = actionElement.dataset.platform;
+    if (!["android", "web"].includes(platform)) return;
+    const stage = document.querySelector("#product-preview");
+    stage.dataset.platform = platform;
+    document.querySelectorAll('[data-action="set-platform"]').forEach((button) => {
+      const active = button.dataset.platform === platform;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    setProductPreview(stage.dataset.preview);
+    return;
+  }
+
+  if (action === "set-preview") {
+    setProductPreview(actionElement.dataset.preview);
+    return;
+  }
 
   if (action === "toggle-menu") {
     state.menuOpen = !state.menuOpen;
@@ -335,6 +423,23 @@ document.addEventListener("click", (event) => {
     return;
   }
 });
+
+// Animate each section once; content stays visible if motion or observers are unavailable.
+const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+if (!motionPreference.matches && "IntersectionObserver" in window) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-revealed");
+      sectionObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".feature-row, .flow-heading, .order-walkthrough, .plan-card, .faq-section, .closing-section").forEach((element) => sectionObserver.observe(element));
+  motionPreference.addEventListener("change", () => {
+    if (!motionPreference.matches) return;
+    sectionObserver.disconnect();
+  });
+}
 
 /* ─── Init ────────────────────────────────────────────────────────────────── */
 
