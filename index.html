@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Reddit+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css?v=20261101-saas" />
-  <link rel="stylesheet" href="./saas.css?v=20261111-about-videos" />
+  <link rel="stylesheet" href="./saas.css?v=20261111-preview-carousel" />
   <script>
     // Apply saved theme/language before paint to avoid a flash.
     (function () {
@@ -207,10 +207,13 @@
           <figure class="hero-capture">
             <img id="preview-image" src="./assets/android-inventory.png" width="460" height="860" alt="Android inventory mockup showing products and available stock" data-i18n-aria="android.inventoryAlt" fetchpriority="high" decoding="async" />
           </figure>
-          <div class="connection-rail" aria-hidden="true">
-            <span><i>↗</i><span data-i18n="preview.orders">Orders</span></span><b></b>
-            <span><i>▦</i><span data-i18n="preview.inventory">Inventory</span></span><b></b>
-            <span><i>✓</i><span data-i18n="preview.cash">Cash</span></span>
+          <div class="preview-flow">
+            <div class="connection-rail" aria-hidden="true">
+              <span data-preview-step="orders"><i>↗</i><span data-i18n="preview.orders">Orders</span></span><b></b>
+              <span data-preview-step="inventory" class="is-active"><i>▦</i><span data-i18n="preview.inventory">Inventory</span></span><b></b>
+              <span data-preview-step="cash"><i>✓</i><span data-i18n="preview.cash">Cash</span></span>
+            </div>
+            <button type="button" class="preview-carousel-toggle" data-action="toggle-preview-carousel" data-i18n="preview.pause" aria-controls="preview-image">Pause carousel</button>
           </div>
         </div>
         </div>
@@ -597,7 +600,7 @@
     </footer>
   </div>
 
-  <script src="./app.js?v=20261101-polish" defer></script>
+  <script src="./app.js?v=20261111-preview-carousel" defer></script>
 </body>
 
 </html>
