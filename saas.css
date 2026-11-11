@@ -49,6 +49,31 @@
 .saas .connection-rail b::after { content: ""; position: absolute; inset: 0; background: var(--color-accent); transform: translateX(-100%); animation: signal-pass 5s ease-in-out infinite; }
 .saas .connection-rail b:nth-of-type(2)::after { animation-delay: 1.25s; }
 .saas .product-stage:is(:hover,:focus-within) .connection-rail b::after { animation-play-state: paused; }
+.saas .about-video-section { background: var(--color-paper); border-top: 1px solid var(--color-rule); }
+.saas .about-video-section + .about-video-section { background: var(--color-paper-2); }
+.saas .about-video-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  align-items: center;
+  gap: var(--space-xl);
+}
+.saas .about-video-copy h2 { color: var(--color-ink); }
+.saas .about-video-copy p {
+  max-width: 42ch;
+  margin-block: var(--space-md) var(--space-lg);
+  color: var(--color-ink-2);
+  line-height: 1.65;
+}
+.saas .about-video-copy .cta-secondary { white-space: normal; }
+.saas .about-video-layout iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--color-dark-panel);
+}
 .saas .features-section { background: var(--color-paper) !important; border-top: 1px solid var(--color-rule); }
 .saas .features-section :is(h2,h3) { color: var(--color-ink) !important; }
 .saas .features-section p, .saas .features-section .eyebrow { color: var(--color-ink-2) !important; }
@@ -163,6 +188,7 @@
   .saas .connection-rail { gap: var(--space-xs); padding: var(--space-lg) 0; }
   .saas .connection-rail > span { flex-direction: column; gap: var(--space-xs); font-size: .7rem; }
   .saas .connection-rail b { flex: 1; max-width: 45px; min-width: 12px; }
+  .saas .about-video-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
   .saas .feature-heading { grid-template-columns: minmax(0,1fr); gap: var(--space-md); }
   .saas .flow-heading { grid-template-columns: minmax(0,1fr); }
   .saas .flow-details { grid-template-columns: minmax(0,1fr); gap: 0; }
