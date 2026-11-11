@@ -312,15 +312,18 @@ const productPreviews = {
   cash: { src: "./assets/sales-sc.png", alt: "preview.cashAlt", caption: "preview.cashCaption" },
 };
 
+const productStage = document.querySelector("#product-preview");
+const previewSteps = [...productStage.querySelectorAll("[data-preview-step]")];
+
 function setProductPreview(key) {
-  const stage = document.querySelector("#product-preview");
-  const previews = stage.dataset.platform === "android" ? androidPreviews : productPreviews;
+  const isAndroid = productStage.dataset.platform === "android";
+  const previews = isAndroid ? androidPreviews : productPreviews;
   const preview = Object.hasOwn(previews, key) ? previews[key] : null;
   if (!preview) return;
-  stage.dataset.preview = key;
+  productStage.dataset.preview = key;
   const image = document.querySelector("#preview-image");
-  image.width = stage.dataset.platform === "android" ? 460 : 1888;
-  image.height = stage.dataset.platform === "android" ? 860 : 914;
+  image.width = isAndroid ? 460 : 1888;
+  image.height = isAndroid ? 860 : 914;
   image.onload = () => {
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || !image.animate) return;
     image.getAnimations().forEach((animation) => animation.cancel());
@@ -332,12 +335,20 @@ function setProductPreview(key) {
   image.src = preview.src;
   image.alt = tr(preview.alt);
   image.dataset.i18nAria = preview.alt;
-  document.querySelectorAll('[data-action="set-preview"]').forEach((button) => {
+  productStage.querySelectorAll('[data-action="set-preview"]').forEach((button) => {
     const active = button.dataset.preview === key;
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   });
+  previewSteps.forEach((step) => step.classList.toggle("is-active", step.dataset.previewStep === key));
 }
+
+productStage.addEventListener("animationend", (event) => {
+  if (event.animationName !== "signal-pass") return;
+  if (!event.target.matches(".connection-rail .is-active + b, .connection-rail .is-active:last-child i")) return;
+  const activeIndex = previewSteps.findIndex((step) => step.dataset.previewStep === productStage.dataset.preview);
+  setProductPreview(previewSteps[(activeIndex + 1) % previewSteps.length].dataset.previewStep);
+});
 
 /* ─── Event wiring ────────────────────────────────────────────────────────── */
 
@@ -376,19 +387,25 @@ document.addEventListener("click", (event) => {
   if (action === "set-platform") {
     const platform = actionElement.dataset.platform;
     if (!["android", "web"].includes(platform)) return;
-    const stage = document.querySelector("#product-preview");
-    stage.dataset.platform = platform;
+    productStage.dataset.platform = platform;
     document.querySelectorAll('[data-action="set-platform"]').forEach((button) => {
       const active = button.dataset.platform === platform;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
     });
-    setProductPreview(stage.dataset.preview);
+    setProductPreview(productStage.dataset.preview);
     return;
   }
 
   if (action === "set-preview") {
     setProductPreview(actionElement.dataset.preview);
+    return;
+  }
+
+  if (action === "toggle-preview-carousel") {
+    const paused = productStage.classList.toggle("is-carousel-paused");
+    actionElement.dataset.i18n = paused ? "preview.resume" : "preview.pause";
+    actionElement.textContent = tr(actionElement.dataset.i18n);
     return;
   }
 
